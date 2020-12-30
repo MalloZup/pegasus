@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	gatherTime    = 10 * time.Second
+	gatherTime    = 30 * time.Second
 	port          = ":50051"
 	tokenCapacity = 6
 )
@@ -27,6 +27,8 @@ type rateLimiterInterceptor struct {
 }
 
 func (r *rateLimiterInterceptor) Limit() bool {
+	// debug
+	fmt.Printf("Token Avail %d \n", r.TokenBucket.Available())
 
 	// if zero we reached rate limit, so return true ( report error to Grpc)
 	tokenRes := r.TokenBucket.TakeAvailable(1)
@@ -34,8 +36,6 @@ func (r *rateLimiterInterceptor) Limit() bool {
 		fmt.Printf("Reached Rate-Limiting %d \n", r.TokenBucket.Available())
 		return true
 	}
-	// debug
-	fmt.Printf("Token Avail %d \n", r.TokenBucket.Available())
 
 	// if tokenRes is not zero, means gRpc request can continue to flow without rate limiting :)
 	return false
