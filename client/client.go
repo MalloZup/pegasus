@@ -42,14 +42,5 @@ func main() {
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
-	go c.SayHelloAgain(ctx, &pb.HelloRequest{Name: "second"})
-	go c.SayHelloAgain(ctx, &pb.HelloRequest{Name: "third"})
-	go c.SayHelloAgain(ctx, &pb.HelloRequest{Name: "quattro"})
-	go c.SayHelloAgain(ctx, &pb.HelloRequest{Name: "cinque"})
-	go c.SayHelloAgain(ctx, &pb.HelloRequest{Name: "sei"})
-	go c.SayHelloAgain(ctx, &pb.HelloRequest{Name: "sette"})
-	go c.SayHelloAgain(ctx, &pb.HelloRequest{Name: "otto"})
-	go c.SayHelloAgain(ctx, &pb.HelloRequest{Name: "nove"})
-
 	log.Printf("Greeting: %s", r.GetMessage())
 }
